@@ -1,6 +1,5 @@
 # Copyright (C) 2023 InwebPress
 # This file is distributed under the same license as the IP Installer plugin.
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: IP Installer 1.0.0\n"
@@ -9,305 +8,309 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"PO-Revision-Date: 2025-04-03 11:31+0000\n"
+"Last-Translator: \n"
+"Language-Team: Українська\n"
 "X-Generator: Loco https://localise.biz/\n"
 "X-Domain: ip-installer\n"
-"\n"
-"Language: \n"
-"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;"
+"Language: uk\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10 >= 2 && "
+"n%10<=4 &&(n%100<10||n%100 >= 20)? 1 : 2);\n"
+"X-Loco-Version: 2.7.1; wp-6.7.2"
 
 #: templates/admin-page.php:126 templates/admin-page.php:295
 msgid "Actions"
-msgstr ""
+msgstr "Дії"
 
 #: ip-installer.php:108 templates/admin-page.php:232
 msgid "Activate"
-msgstr ""
+msgstr "Активувати"
 
 #: ip-installer.php:106 templates/admin-page.php:198
 msgid "Active"
-msgstr ""
+msgstr "Активний"
 
 #: ip-installer.php:118
 msgid "AJAX request error. Please try again."
-msgstr ""
+msgstr "Помилка запиту AJAX. Спробуйте ще раз."
 
 #: templates/admin-page.php:78
 msgid "An error occurred. Please try again."
-msgstr ""
+msgstr "Виникла помилка. Будь ласка, спробуйте ще раз."
 
 #: ip-installer.php:114 templates/admin-page.php:400
 msgid "Check for updates"
-msgstr ""
+msgstr "Перевірити наявність оновлень"
 
 #: includes/installer-functions.php:129
 #, php-format
 msgid "CURL Error: %s"
-msgstr ""
+msgstr "Помилка CURL: %s"
 
 #: ip-installer.php:109 templates/admin-page.php:223
 msgid "Deactivate"
-msgstr ""
+msgstr "Деактивувати"
 
 #: templates/settings-page.php:40
 msgid "Delete all plugin data when uninstalling"
-msgstr ""
+msgstr "Очистити всі дані плагіна під час його видалення"
 
 #: templates/admin-page.php:124 templates/admin-page.php:293
 msgid "Description"
-msgstr ""
+msgstr "Опис"
 
 #: ip-installer.php:159 ip-installer.php:167 ip-installer.php:175
 #: ip-installer.php:184 ip-installer.php:193 ip-installer.php:201
 #: ip-installer.php:209 ip-installer.php:217
 msgid "Description will be added later"
-msgstr ""
+msgstr "Опис буде додано пізніше"
 
 #: includes/installer-functions.php:173
 msgid "Downloaded file is missing or empty."
-msgstr ""
+msgstr "Завантажений файл відсутній або порожній."
 
 #: includes/installer-functions.php:217
 msgid "Failed to copy plugin files."
-msgstr ""
+msgstr "Не вдалося скопіювати файли плагінів."
 
 #: includes/installer-functions.php:243
 msgid "Failed to copy script file."
-msgstr ""
+msgstr "Не вдалося скопіювати файл скрипта."
 
 #: includes/installer-functions.php:98
 msgid "Failed to create temporary directory for download."
-msgstr ""
+msgstr "Не вдалося створити тимчасовий каталог для завантаження."
 
 #: includes/ajax-handlers.php:282
 msgid "Failed to delete plugin files."
-msgstr ""
+msgstr "Не вдалося видалити файли плагінів."
 
 #: includes/ajax-handlers.php:297
 msgid "Failed to delete script file."
-msgstr ""
+msgstr "Не вдалося видалити файл скрипта."
 
 #: includes/installer-functions.php:137 includes/installer-functions.php:163
 #, php-format
 msgid "Failed to download archive. Response code: %s"
-msgstr ""
+msgstr "Не вдалося завантажити архів. Код відповіді: %s"
 
 #: includes/installer-functions.php:192
 msgid "Failed to find extracted plugin files."
-msgstr ""
+msgstr "Не вдалося знайти розпаковані файли плагінів."
 
 #: includes/installer-functions.php:231
 msgid "Failed to find PHP script file."
-msgstr ""
+msgstr "Не вдалося знайти файл PHP-скрипта."
 
 #: ip-installer.php:113 templates/admin-page.php:254
 #: templates/admin-page.php:258 templates/admin-page.php:272
 #: templates/admin-page.php:364 templates/admin-page.php:368
 #: templates/admin-page.php:382
 msgid "Go to"
-msgstr ""
+msgstr "Перейти"
 
 #. URI of the plugin
 msgid "https://github.com/pekarskyi/"
-msgstr ""
+msgstr "https://github.com/pekarskyi/"
 
 #. Author URI of the plugin
 msgid "https://inwebpress.com"
-msgstr ""
+msgstr "https://inwebpress.com"
 
 #: templates/settings-page.php:43
 msgid ""
 "If checked, all plugin data will be removed when the plugin is uninstalled."
-msgstr ""
+msgstr "Всі дані буде очищено під час видалення плагіна."
 
 #: ip-installer.php:107 templates/admin-page.php:200
 msgid "Inactive"
-msgstr ""
+msgstr "Неактивний"
 
 #: ip-installer.php:104 templates/admin-page.php:267
 #: templates/admin-page.php:377
 msgid "Install"
-msgstr ""
+msgstr "Встановити"
 
 #: ip-installer.php:102 templates/admin-page.php:192
 #: templates/admin-page.php:328
 msgid "Installed"
-msgstr ""
+msgstr "Встановлено"
 
 #. Author of the plugin
 msgid "InwebPress"
-msgstr ""
+msgstr "InwebPress"
 
 #. Name of the plugin
 #: ip-installer.php:126 ip-installer.php:127 templates/admin-page.php:17
 msgid "IP Installer"
-msgstr ""
+msgstr "IP Installer"
 
 #: templates/settings-page.php:16
 msgid "IP Installer Settings"
-msgstr ""
+msgstr "Налаштування IP Installer"
 
 #: ip-installer.php:115 templates/admin-page.php:106
 #: templates/admin-page.php:410
 #, php-format
 msgid "Last checked: %s"
-msgstr ""
+msgstr "Остання перевірка: %s"
 
 #: includes/ajax-handlers.php:27 includes/ajax-handlers.php:96
 #: includes/ajax-handlers.php:161 includes/ajax-handlers.php:218
 msgid "Missing plugin ID."
-msgstr ""
+msgstr "Відсутній ідентифікатор плагіна."
 
 #: templates/admin-page.php:123 templates/admin-page.php:292
 msgid "Name"
-msgstr ""
+msgstr "Назва"
 
 #: ip-installer.php:103 templates/admin-page.php:203
 #: templates/admin-page.php:333
 msgid "Not Installed"
-msgstr ""
+msgstr "Не встановлено"
 
 #: includes/ajax-handlers.php:195
 #, php-format
 msgid "Plugin \"%s\" installed successfully."
-msgstr ""
+msgstr "Плагін \"%s\" успішно встановлено."
 
 #: includes/ajax-handlers.php:284
 #, php-format
 msgid "Plugin \"%s\" uninstalled successfully."
-msgstr ""
+msgstr "Плагін \"%s\" успішно видалено."
 
 #: templates/admin-page.php:50
 #, php-format
 msgid "Plugin %s installed successfully!"
-msgstr ""
+msgstr "Плагін %s успішно встановлено!"
 
 #: templates/admin-page.php:68
 #, php-format
 msgid "Plugin %s uninstalled successfully!"
-msgstr ""
+msgstr "Плагін %s успішно видалено!"
 
 #: ip-installer.php:112 templates/admin-page.php:38
 #, php-format
 msgid "Plugin %s updated successfully to the latest version %s!"
-msgstr ""
+msgstr "Плагін %s успішно оновлено до останньої версії %s!"
 
 #: ip-installer.php:111 templates/admin-page.php:44
 #, php-format
 msgid "Plugin %s updated successfully!"
-msgstr ""
+msgstr "Плагін %s успішно оновлено!"
 
 #: templates/admin-page.php:21
 msgid "Plugin activated successfully!"
-msgstr ""
+msgstr "Плагін успішно активовано!"
 
 #: includes/ajax-handlers.php:75
 msgid "Plugin activated successfully."
-msgstr ""
+msgstr "Плагін успішно активовано."
 
 #: templates/settings-page.php:34
 msgid "Plugin cleanup"
-msgstr ""
+msgstr "Очищення БД"
 
 #: templates/admin-page.php:27
 msgid "Plugin deactivated successfully!"
-msgstr ""
+msgstr "Плагін успішно деактивовано!"
 
 #: includes/ajax-handlers.php:141
 msgid "Plugin deactivated successfully."
-msgstr ""
+msgstr "Плагін успішно деактивовано."
 
 #: includes/ajax-handlers.php:287
 msgid "Plugin directory not found."
-msgstr ""
+msgstr "Каталог плагінів не знайдено."
 
 #. Description of the plugin
 msgid ""
 "Plugin for installing other plugins and scripts from GitHub repositories."
 msgstr ""
+"Плагін для встановлення інших плагінів і скриптів з репозиторіїв GitHub."
 
 #: includes/ajax-handlers.php:60 includes/ajax-handlers.php:129
 msgid "Plugin main file not found."
-msgstr ""
+msgstr "Головний файл плагіна не знайдено."
 
 #: includes/ajax-handlers.php:35 includes/ajax-handlers.php:104
 #: includes/ajax-handlers.php:169 includes/ajax-handlers.php:226
 msgid "Plugin not found."
-msgstr ""
+msgstr "Плагін не знайдено."
 
 #: templates/settings-page.php:51
 msgid "Save Settings"
-msgstr ""
+msgstr "Зберегти налаштування"
 
 #: includes/ajax-handlers.php:295
 #, php-format
 msgid "Script \"%s\" uninstalled successfully."
-msgstr ""
+msgstr "Скрипт \"%s\" успішно видалено."
 
 #: includes/ajax-handlers.php:300
 msgid "Script file not found."
-msgstr ""
+msgstr "Файл скрипта не знайдено."
 
 #: templates/admin-page.php:287
 msgid "Scripts"
-msgstr ""
+msgstr "Скрипти"
 
 #: includes/ajax-handlers.php:17 includes/ajax-handlers.php:86
 #: includes/ajax-handlers.php:151 includes/ajax-handlers.php:208
 #: includes/ajax-handlers.php:312
 msgid "Security check failed."
-msgstr ""
+msgstr "Перевірка безпеки не вдалася."
 
 #: ip-installer.php:137 ip-installer.php:138 ip-installer.php:148
 msgid "Settings"
-msgstr ""
+msgstr "Налаштування"
 
 #: templates/settings-page.php:22
 msgid "Settings updated successfully!"
-msgstr ""
+msgstr "Налаштування успішно оновлено!"
 
 #: includes/ajax-handlers.php:324
 msgid "Settings updated successfully."
-msgstr ""
+msgstr "Налаштування успішно оновлено."
 
 #: templates/admin-page.php:125 templates/admin-page.php:294
 msgid "Status"
-msgstr ""
+msgstr "Статус"
 
 #: ip-installer.php:105 templates/admin-page.php:213
 #: templates/admin-page.php:343
 msgid "Uninstall"
-msgstr ""
+msgstr "Видалити"
 
 #: ip-installer.php:116 templates/admin-page.php:98
 msgid "Update check completed. All plugins and scripts are up to date."
 msgstr ""
+"Перевірка оновлень завершена. Всі плагіни та скрипти мають свіжу версію."
 
 #: ip-installer.php:117 templates/admin-page.php:89
 msgid "Update check completed. Found %d update available."
 msgid_plural "Update check completed. Found %d updates available."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Перевірка оновлень завершена. Знайдено доступне оновлення %d."
+msgstr[1] "Перевірка оновлень завершена. Знайдено %d доступних оновлень."
+msgstr[2] "Перевірка оновлень завершена. Знайдено %d доступних оновлень."
 
 #: ip-installer.php:110 templates/admin-page.php:243
 #: templates/admin-page.php:353
 #, php-format
 msgid "Update to %s"
-msgstr ""
+msgstr "Оновити до %s"
 
 #: templates/admin-page.php:56
 #, php-format
 msgid "Version: %s"
-msgstr ""
+msgstr "Версія: %s"
 
 #: templates/admin-page.php:118
 msgid "WordPress Plugins"
-msgstr ""
+msgstr "Плагіни WordPress"
 
 #: includes/ajax-handlers.php:22 includes/ajax-handlers.php:91
 #: includes/ajax-handlers.php:156 includes/ajax-handlers.php:213
 #: includes/ajax-handlers.php:317
 msgid "You do not have permission to perform this action."
-msgstr ""
+msgstr "Ви не маєте дозволу на виконання цієї дії."
