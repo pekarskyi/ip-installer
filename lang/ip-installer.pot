@@ -1,0 +1,288 @@
+# Copyright (C) 2023 InwebPress
+# This file is distributed under the same license as the IP Installer plugin.
+msgid ""
+msgstr ""
+"Project-Id-Version: IP Installer 1.0.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/ip-installer\n"
+"POT-Creation-Date: 2023-04-01T12:00:00+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2023-04-01T12:00:00+00:00\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"X-Generator: WP-CLI 2.7.1\n"
+"X-Domain: ip-installer\n"
+
+#. Plugin Name of the plugin
+#: ip-installer.php:105
+#: ip-installer.php:106
+#: templates/admin-page.php:15
+msgid "IP Installer"
+msgstr ""
+
+#. Plugin URI of the plugin
+msgid "https://github.com/pekarskyi/"
+msgstr ""
+
+#. Description of the plugin
+msgid "Plugin for installing other plugins and scripts from GitHub repositories."
+msgstr ""
+
+#. Author of the plugin
+msgid "InwebPress"
+msgstr ""
+
+#. Author URI of the plugin
+msgid "https://inwebpress.com"
+msgstr ""
+
+#: includes/ajax-handlers.php:12
+#: includes/ajax-handlers.php:106
+#: includes/ajax-handlers.php:180
+#: includes/ajax-handlers.php:259
+#: includes/ajax-handlers.php:347
+msgid "Security check failed."
+msgstr ""
+
+#: includes/ajax-handlers.php:17
+#: includes/ajax-handlers.php:111
+#: includes/ajax-handlers.php:185
+#: includes/ajax-handlers.php:264
+#: includes/ajax-handlers.php:352
+msgid "You do not have permission to perform this action."
+msgstr ""
+
+#: includes/ajax-handlers.php:22
+#: includes/ajax-handlers.php:116
+#: includes/ajax-handlers.php:190
+#: includes/ajax-handlers.php:269
+msgid "Missing plugin ID."
+msgstr ""
+
+#: includes/ajax-handlers.php:28
+#: includes/ajax-handlers.php:122
+#: includes/ajax-handlers.php:196
+#: includes/ajax-handlers.php:275
+msgid "Plugin not found."
+msgstr ""
+
+#: includes/ajax-handlers.php:61
+#: includes/ajax-handlers.php:155
+msgid "Plugin main file not found."
+msgstr ""
+
+#: includes/ajax-handlers.php:76
+msgid "Plugin activated successfully."
+msgstr ""
+
+#: includes/ajax-handlers.php:174
+msgid "Plugin deactivated successfully."
+msgstr ""
+
+#: includes/ajax-handlers.php:225
+msgid "Plugin \"%s\" installed successfully."
+msgstr ""
+
+#: includes/ajax-handlers.php:307
+msgid "Failed to delete plugin files."
+msgstr ""
+
+#: includes/ajax-handlers.php:309
+msgid "Plugin \"%s\" uninstalled successfully."
+msgstr ""
+
+#: includes/ajax-handlers.php:312
+msgid "Plugin directory not found."
+msgstr ""
+
+#: includes/ajax-handlers.php:320
+msgid "Script \"%s\" uninstalled successfully."
+msgstr ""
+
+#: includes/ajax-handlers.php:322
+msgid "Failed to delete script file."
+msgstr ""
+
+#: includes/ajax-handlers.php:325
+msgid "Script file not found."
+msgstr ""
+
+#: includes/ajax-handlers.php:362
+msgid "Settings updated successfully."
+msgstr ""
+
+#: includes/installer-functions.php:76
+msgid "Failed to create temporary directory for download."
+msgstr ""
+
+#: includes/installer-functions.php:96
+msgid "CURL Error: %s"
+msgstr ""
+
+#: includes/installer-functions.php:103
+#: includes/installer-functions.php:133
+msgid "Failed to download archive. Response code: %s"
+msgstr ""
+
+#: includes/installer-functions.php:147
+msgid "Downloaded file is missing or empty."
+msgstr ""
+
+#: includes/installer-functions.php:162
+msgid "Failed to find extracted plugin files."
+msgstr ""
+
+#: includes/installer-functions.php:188
+msgid "Failed to copy plugin files."
+msgstr ""
+
+#: includes/installer-functions.php:204
+msgid "Failed to find PHP script file."
+msgstr ""
+
+#: includes/installer-functions.php:214
+msgid "Failed to copy script file."
+msgstr ""
+
+#: ip-installer.php:94
+#: ip-installer.php:119
+msgid "Settings"
+msgstr ""
+
+#: ip-installer.php:112
+msgid "Description will be added later"
+msgstr ""
+
+#: templates/admin-page.php:20
+msgid "Plugin activated successfully!"
+msgstr ""
+
+#: templates/admin-page.php:27
+msgid "Plugin deactivated successfully!"
+msgstr ""
+
+#: templates/admin-page.php:37
+msgid "Plugin %s installed successfully!"
+msgstr ""
+
+#: templates/admin-page.php:41
+msgid "Version: %s"
+msgstr ""
+
+#: templates/admin-page.php:54
+msgid "Plugin %s uninstalled successfully!"
+msgstr ""
+
+#: templates/admin-page.php:64
+msgid "An error occurred. Please try again."
+msgstr ""
+
+#: templates/admin-page.php:71
+#: templates/admin-page.php:83
+msgid "WordPress Plugins"
+msgstr ""
+
+#: templates/admin-page.php:74
+#: templates/admin-page.php:148
+msgid "Scripts"
+msgstr ""
+
+#: templates/admin-page.php:77
+#: templates/settings-page.php:15
+msgid "Settings"
+msgstr ""
+
+#: templates/admin-page.php:89
+#: templates/admin-page.php:154
+msgid "Name"
+msgstr ""
+
+#: templates/admin-page.php:90
+#: templates/admin-page.php:155
+msgid "Description"
+msgstr ""
+
+#: templates/admin-page.php:91
+#: templates/admin-page.php:156
+msgid "Status"
+msgstr ""
+
+#: templates/admin-page.php:92
+#: templates/admin-page.php:157
+msgid "Actions"
+msgstr ""
+
+#: templates/admin-page.php:141
+#: templates/admin-page.php:176
+msgid "Installed"
+msgstr ""
+
+#: templates/admin-page.php:146
+#: templates/admin-page.php:181
+msgid "Not Installed"
+msgstr ""
+
+#: templates/admin-page.php:160
+#: templates/admin-page.php:194
+msgid "Active"
+msgstr ""
+
+#: templates/admin-page.php:162
+#: templates/admin-page.php:196
+msgid "Inactive"
+msgstr ""
+
+#: templates/admin-page.php:171
+#: templates/admin-page.php:205
+#: templates/admin-page.php:252
+msgid "Uninstall"
+msgstr ""
+
+#: templates/admin-page.php:182
+msgid "Deactivate"
+msgstr ""
+
+#: templates/admin-page.php:193
+msgid "Activate"
+msgstr ""
+
+#: templates/admin-page.php:214
+#: templates/admin-page.php:231
+#: templates/admin-page.php:261
+#: templates/admin-page.php:278
+msgid "Go to"
+msgstr ""
+
+#: templates/admin-page.php:240
+#: templates/admin-page.php:287
+msgid "Install"
+msgstr ""
+
+#: templates/admin-page.php:304
+msgid "Settings updated successfully!"
+msgstr ""
+
+#: templates/admin-page.php:317
+#: templates/settings-page.php:34
+msgid "Plugin cleanup"
+msgstr ""
+
+#: templates/admin-page.php:322
+#: templates/settings-page.php:39
+msgid "Delete all plugin data when uninstalling"
+msgstr ""
+
+#: templates/admin-page.php:325
+#: templates/settings-page.php:42
+msgid "If checked, all plugin data will be removed when the plugin is uninstalled."
+msgstr ""
+
+#: templates/admin-page.php:332
+#: templates/settings-page.php:49
+msgid "Save Settings"
+msgstr ""
+
+#: js/ip-installer.js:36
+msgid "AJAX request error. Please try again."
+msgstr "" 

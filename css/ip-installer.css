@@ -1,0 +1,147 @@
+/**
+ * IP Installer CSS
+ */
+
+.ip-installer-section {
+    margin-top: 20px;
+}
+
+.ip-installer-section+.ip-installer-section {
+    margin-top: 30px;
+}
+
+.ip-installer-action {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #fff;
+    border: 1px solid #c3c4c7;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04);
+    text-align: center;
+}
+
+.card {
+    max-width: 100%;
+}
+
+/* Стилізація таблиць */
+.wp-list-table tr:nth-child(odd) {
+    background-color: #FFF;
+}
+
+.wp-list-table tr:nth-child(even) {
+    background-color: #E9E9E9;
+}
+
+.wp-list-table tr:hover {
+    background-color: #DFDFDF;
+}
+
+.column-name {
+    width: 20%;
+}
+
+.column-description {
+    width: 40%;
+}
+
+.column-status {
+    width: 15%;
+}
+
+.column-actions {
+    width: 25%;
+}
+
+.button.red {
+    background-color: #d63638;
+    border-color: #d63638;
+    color: #fff;
+}
+
+.button.red:hover {
+    background-color: #b32d2e;
+    border-color: #b32d2e;
+    color: #fff;
+}
+
+.button.green {
+    background-color: #00a32a;
+    border-color: #00a32a;
+    color: #fff;
+}
+
+.button.green:hover {
+    background-color: #008a20;
+    border-color: #008a20;
+    color: #fff;
+}
+
+.update-button {
+    background-color: #2271b1;
+    border-color: #2271b1;
+    color: #fff;
+}
+
+.update-button:hover {
+    background-color: #135e96;
+    border-color: #135e96;
+    color: #fff;
+}
+
+.status-installed {
+    color: #00a32a;
+    font-weight: bold;
+}
+
+.status-not-installed {
+    color: #d63638;
+    font-weight: bold;
+}
+
+.status-active {
+    color: #00a32a;
+    font-weight: bold;
+}
+
+.status-inactive {
+    color: #d63638;
+    font-weight: bold;
+}
+
+.version {
+    color: #666;
+    font-size: 0.85em;
+    font-weight: normal;
+    font-style: italic;
+}
+
+.ip-installer-message {
+    margin: 15px 0;
+    padding: 10px 15px;
+    border-left: 4px solid;
+    box-shadow: 0 1px 1px 0 rgba(0, 0, 0, .1);
+}
+
+.ip-installer-message.success {
+    border-color: #00a32a;
+    background-color: #f0f9eb;
+}
+
+.ip-installer-message.error {
+    border-color: #d63638;
+    background-color: #fcf9f9;
+}
+
+.ip-installer-spinner {
+    visibility: visible;
+    float: none;
+    margin-left: 5px;
+    vertical-align: middle;
+}
+
+.last-check-info {
+    margin-top: 10px;
+    color: #666;
+    font-size: 0.9em;
+    font-style: italic;
+}
