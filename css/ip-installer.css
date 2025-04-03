@@ -19,6 +19,11 @@
     text-align: center;
 }
 
+.ip-installer-section .widefat td,
+.widefat th {
+    color: #000 !important;
+}
+
 .card {
     max-width: 100%;
 }

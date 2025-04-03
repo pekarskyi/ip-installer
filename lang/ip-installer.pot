@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: IP Installer 1.0.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/ip-installer\n"
-"POT-Creation-Date: 2025-04-03 11:09+0000\n"
+"POT-Creation-Date: 2025-04-03 22:58+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -14,9 +14,33 @@ msgstr ""
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "X-Generator: Loco https://localise.biz/\n"
 "X-Domain: ip-installer\n"
-"\n"
 "Language: \n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;"
+
+#: ip-installer.php:217
+msgid ""
+"A simple WordPress plugin for cleaning up the database by removing products, "
+"categories, attributes, tags, coupons, orders, and order notes."
+msgstr ""
+
+#: ip-installer.php:184
+msgid ""
+"A WordPress debugging tool that displays PHP errors from debug.log in a "
+"structured and user-friendly format."
+msgstr ""
+
+#: ip-installer.php:201
+msgid ""
+"A WordPress plugin for logging user search queries on your site. It offers a "
+"convenient interface in the WordPress admin panel to view and analyze the "
+"collected data, along with the option to export it in Excel format."
+msgstr ""
+
+#: ip-installer.php:209
+msgid ""
+"A WordPress plugin that converts local (custom) product attributes into "
+"global attributes."
+msgstr ""
 
 #: templates/admin-page.php:126 templates/admin-page.php:295
 msgid "Actions"
@@ -55,14 +79,12 @@ msgstr ""
 msgid "Delete all plugin data when uninstalling"
 msgstr ""
 
-#: templates/admin-page.php:124 templates/admin-page.php:293
-msgid "Description"
+#: ip-installer.php:167
+msgid "Delivery (UA) Shipping Method for WooCommerce."
 msgstr ""
 
-#: ip-installer.php:159 ip-installer.php:167 ip-installer.php:175
-#: ip-installer.php:184 ip-installer.php:193 ip-installer.php:201
-#: ip-installer.php:209 ip-installer.php:217
-msgid "Description will be added later"
+#: templates/admin-page.php:124 templates/admin-page.php:293
+msgid "Description"
 msgstr ""
 
 #: includes/installer-functions.php:173
@@ -276,6 +298,12 @@ msgstr ""
 msgid "Status"
 msgstr ""
 
+#: ip-installer.php:193
+msgid ""
+"The plugin lets you quickly switch between different languages without "
+"digging into WordPress general or profile settings."
+msgstr ""
+
 #: ip-installer.php:105 templates/admin-page.php:213
 #: templates/admin-page.php:343
 msgid "Uninstall"
@@ -302,8 +330,22 @@ msgstr ""
 msgid "Version: %s"
 msgstr ""
 
+#: ip-installer.php:159
+msgid ""
+"WordPress plugin for monitoring, logging, and alerting suspicious GET "
+"requests on your website. It acts as an additional security layer, helping "
+"you detect potential threats at an early stage."
+msgstr ""
+
 #: templates/admin-page.php:118
 msgid "WordPress Plugins"
+msgstr ""
+
+#: ip-installer.php:175
+msgid ""
+"WordPress URL Replacer is a simple yet powerful tool that instantly replaces "
+"any URLs directly in your site’s database. No complicated settings or bulky "
+"plugins — just fast, simple, and effective."
 msgstr ""
 
 #: includes/ajax-handlers.php:22 includes/ajax-handlers.php:91

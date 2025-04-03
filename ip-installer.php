@@ -156,7 +156,7 @@ function ip_installer_get_plugins_list() {
     return array(
         'ip-get-logger' => array(
             'name' => 'IP GET Logger',
-            'description' => __('Description will be added later', 'ip-installer'),
+            'description' => __('WordPress plugin for monitoring, logging, and alerting suspicious GET requests on your website. It acts as an additional security layer, helping you detect potential threats at an early stage.', 'ip-installer'),
             'redirect_url' => admin_url('admin.php?page=ip-get-logger'),
             'github_url' => 'https://github.com/pekarskyi/ip-get-logger',
             'installation_type' => 'plugin',
@@ -164,7 +164,7 @@ function ip_installer_get_plugins_list() {
         ),
         'ip-delivery-shipping' => array(
             'name' => 'Delivery for WooCommerce',
-            'description' => __('Description will be added later', 'ip-installer'),
+            'description' => __('Delivery (UA) Shipping Method for WooCommerce.', 'ip-installer'),
             'redirect_url' => admin_url('admin.php?page=wc-settings&tab=shipping&section=delivery'),
             'github_url' => 'https://github.com/pekarskyi/ip-delivery-shipping',
             'installation_type' => 'plugin',
@@ -172,7 +172,7 @@ function ip_installer_get_plugins_list() {
         ),
         'ip-wordpress-url-replacer' => array(
             'name' => 'IP WordPress URL Replacer',
-            'description' => __('Description will be added later', 'ip-installer'),
+            'description' => __('WordPress URL Replacer is a simple yet powerful tool that instantly replaces any URLs directly in your site’s database. No complicated settings or bulky plugins — just fast, simple, and effective.', 'ip-installer'),
             'redirect_url' => site_url('/wur-script.php'),
             'github_url' => 'https://github.com/pekarskyi/ip-wordpress-url-replacer',
             'installation_type' => 'script',
@@ -181,7 +181,7 @@ function ip_installer_get_plugins_list() {
         ),
         'ip-debug-log-viewer' => array(
             'name' => 'IP Debug Log Viewer',
-            'description' => __('Description will be added later', 'ip-installer'),
+            'description' => __('A WordPress debugging tool that displays PHP errors from debug.log in a structured and user-friendly format.', 'ip-installer'),
             'redirect_url' => site_url('/ip-debug-viewer.php'),
             'github_url' => 'https://github.com/pekarskyi/ip-debug-log-viewer',
             'installation_type' => 'script',
@@ -190,7 +190,7 @@ function ip_installer_get_plugins_list() {
         ),
         'ip-language-quick-switcher-for-wp' => array(
             'name' => 'IP Language Quick Switcher for WordPress',
-            'description' => __('Description will be added later', 'ip-installer'),
+            'description' => __('The plugin lets you quickly switch between different languages without digging into WordPress general or profile settings.', 'ip-installer'),
             'redirect_url' => '',
             'github_url' => 'https://github.com/pekarskyi/ip-language-quick-switcher-for-wp',
             'installation_type' => 'plugin',
@@ -198,7 +198,7 @@ function ip_installer_get_plugins_list() {
         ),
         'ip-search-log' => array(
             'name' => 'IP Search Log',
-            'description' => __('Description will be added later', 'ip-installer'),
+            'description' => __('A WordPress plugin for logging user search queries on your site. It offers a convenient interface in the WordPress admin panel to view and analyze the collected data, along with the option to export it in Excel format.', 'ip-installer'),
             'redirect_url' => admin_url('admin.php?page=ip-search-log'),
             'github_url' => 'https://github.com/pekarskyi/ip-search-log',
             'installation_type' => 'plugin',
@@ -206,7 +206,7 @@ function ip_installer_get_plugins_list() {
         ),
         'ip-woo-attribute-converter' => array(
             'name' => 'IP Woo Attributes Converter',
-            'description' => __('Description will be added later', 'ip-installer'),
+            'description' => __('A WordPress plugin that converts local (custom) product attributes into global attributes.', 'ip-installer'),
             'redirect_url' => admin_url('admin.php?page=ipwacg'),
             'github_url' => 'https://github.com/pekarskyi/ip-woo-attribute-converter',
             'installation_type' => 'plugin',
@@ -214,7 +214,7 @@ function ip_installer_get_plugins_list() {
         ),
         'ip-woo-cleaner' => array(
             'name' => 'IP Woo Cleaner',
-            'description' => __('Description will be added later', 'ip-installer'),
+            'description' => __('A simple WordPress plugin for cleaning up the database by removing products, categories, attributes, tags, coupons, orders, and order notes.', 'ip-installer'),
             'redirect_url' => admin_url('admin.php?page=woo-cleaner'),
             'github_url' => 'https://github.com/pekarskyi/ip-woo-cleaner',
             'installation_type' => 'plugin',
