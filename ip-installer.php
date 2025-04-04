@@ -15,7 +15,7 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-$github_api_key = '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';
+$github_api_key = '';
 
 // Constants definition
 // Отримання версії плагіна з опису файлу
