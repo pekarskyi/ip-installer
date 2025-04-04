@@ -15,8 +15,6 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-$github_api_key = '';
-
 // Constants definition
 // Отримання версії плагіна з опису файлу
 $plugin_data = get_file_data(__FILE__, array('Version' => 'Version'), 'plugin');
@@ -828,7 +826,7 @@ if ( function_exists( 'ip_github_updater_load' ) ) {
             $updater_function,
             __FILE__,       // Plugin file path
             $github_username, // Your GitHub username
-            $github_api_key,              // Access token (empty)
+            '',              // Access token (empty)
             $repo_name       // Repository name (на основі префіксу)
         );
     }
