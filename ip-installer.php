@@ -3,7 +3,7 @@
  * Plugin Name: IP Installer
  * Plugin URI: https://github.com/pekarskyi/
  * Description: Plugin for installing other plugins and scripts from GitHub repositories.
- * Version: 1.1.0
+ * Version: 1.2.0
  * Author: InwebPress
  * Author URI: https://inwebpress.com
  * Text Domain: ip-installer
@@ -14,6 +14,8 @@
 if (!defined('ABSPATH')) {
     exit;
 }
+
+$github_api_key = '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';
 
 // Constants definition
 // Отримання версії плагіна з опису файлу
@@ -115,7 +117,7 @@ function ip_installer_enqueue_scripts($hook) {
         'lastChecked'  => __('Last checked: %s', 'ip-installer'),
         'updateCheckComplete' => __('Update check completed. All plugins and scripts are up to date.', 'ip-installer'),
         'updateCheckCompleteFound' => _n_noop('Update check completed. Found %d update available.', 'Update check completed. Found %d updates available.', 'ip-installer'),
-        'ajaxError'    => __('AJAX request error. Please try again.', 'ip-installer')
+        'ajaxError'    => __('AJAX request error. Please try again.', 'ip-installer'),
     ));
 }
 add_action('admin_enqueue_scripts', 'ip_installer_enqueue_scripts');
@@ -142,6 +144,12 @@ function ip_installer_add_admin_menu() {
     );
 }
 add_action('admin_menu', 'ip_installer_add_admin_menu');
+
+// Додаємо налаштування для GitHub API ключа
+function ip_installer_register_settings() {
+    // Зараз налаштування не потрібні, оскільки всі параметри визначаються через константи
+}
+add_action('admin_init', 'ip_installer_register_settings');
 
 // Add settings link on plugins page
 function ip_installer_add_settings_link($links) {
@@ -172,7 +180,7 @@ function ip_installer_get_plugins_list() {
         ),
         'ip-wordpress-url-replacer' => array(
             'name' => 'IP WordPress URL Replacer',
-            'description' => __('WordPress URL Replacer is a simple yet powerful tool that instantly replaces any URLs directly in your site’s database. No complicated settings or bulky plugins — just fast, simple, and effective.', 'ip-installer'),
+            'description' => __('WordPress URL Replacer is a simple yet powerful tool that instantly replaces any URLs directly in your site\'s database. No complicated settings or bulky plugins — just fast, simple, and effective.', 'ip-installer'),
             'redirect_url' => site_url('/wur-script.php'),
             'github_url' => 'https://github.com/pekarskyi/ip-wordpress-url-replacer',
             'installation_type' => 'script',
@@ -253,14 +261,14 @@ function ip_installer_update_setting($option_name, $option_value) {
         $wpdb->prepare("SELECT COUNT(*) FROM $table_name WHERE option_name = %s", $option_name)
     );
     
-    if ($exists > 0) {
-        return $wpdb->update(
+    if ($exists) {
+        $wpdb->update(
             $table_name,
             array('option_value' => $option_value),
             array('option_name' => $option_name)
         );
     } else {
-        return $wpdb->insert(
+        $wpdb->insert(
             $table_name,
             array(
                 'option_name' => $option_name,
@@ -268,6 +276,28 @@ function ip_installer_update_setting($option_name, $option_value) {
             )
         );
     }
+}
+
+/**
+ * Отримання GitHub API-ключа
+ * 
+ * @return string API-ключ GitHub або пустий рядок
+ */
+function ip_installer_get_github_api_key() {
+    global $github_api_key;
+    
+    // Спочатку перевіряємо, чи визначена константа
+    if (defined('IP_INSTALLER_GITHUB_API_KEY')) {
+        return IP_INSTALLER_GITHUB_API_KEY;
+    }
+    
+    // Далі перевіряємо, чи є значення в змінній
+    if (!empty($github_api_key)) {
+        return $github_api_key;
+    }
+    
+    // Якщо не знайдено, повертаємо пустий рядок
+    return '';
 }
 
 // Include additional files
@@ -710,6 +740,9 @@ function ip_installer_process_forms() {
             wp_die('You do not have sufficient permissions to perform this action');
         }
 
+        // Очищуємо кеш оновлень перед перевіркою
+        delete_option('ip_installer_available_updates');
+        
         // Отримуємо всі плагіни та скрипти
         $plugins = ip_installer_get_plugins_list();
         $available_updates = array();
@@ -766,9 +799,9 @@ function ip_installer_process_forms() {
         // Оновлення налаштування
         $delete_on_uninstall = isset($_POST['delete_on_uninstall']) ? 1 : 0;
         update_option('ip_installer_delete_on_uninstall', $delete_on_uninstall);
-
+        
         // Перенаправлення назад на сторінку налаштувань
-        wp_redirect(admin_url('admin.php?page=ip-installer&settings_updated=1'));
+        wp_redirect(admin_url('admin.php?page=ip-installer-settings&settings_updated=1'));
         exit;
     }
 }
@@ -795,7 +828,7 @@ if ( function_exists( 'ip_github_updater_load' ) ) {
             $updater_function,
             __FILE__,       // Plugin file path
             $github_username, // Your GitHub username
-            '',              // Access token (empty)
+            $github_api_key,              // Access token (empty)
             $repo_name       // Repository name (на основі префіксу)
         );
     }

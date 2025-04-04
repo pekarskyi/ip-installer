@@ -49,24 +49,48 @@ function ip_installer_get_github_release_url($github_url) {
     $repo_name = end($repo_parts);
     $username = prev($repo_parts);
     
-    // Use direct link to master/main branch archive
-    // First check main, then master
+    // Підготовка заголовків запиту
+    $headers = array(
+        'User-Agent' => 'WordPress/' . get_bloginfo('version') . '; ' . get_bloginfo('url'),
+    );
+    
+    // Додаємо токен аутентифікації, якщо він є
+    $github_api_key = function_exists('ip_installer_get_github_api_key') ? ip_installer_get_github_api_key() : '';
+    if (!empty($github_api_key)) {
+        $headers['Authorization'] = 'token ' . $github_api_key;
+    }
+    
+    // Спочатку перевіряємо наявність релізів
+    $releases_url = "https://api.github.com/repos/{$username}/{$repo_name}/releases/latest";
+    $releases_response = wp_remote_get($releases_url, array(
+        'timeout' => 10,
+        'headers' => $headers
+    ));
+    
+    // Якщо знайдено останній реліз, використовуємо його
+    if (!is_wp_error($releases_response) && wp_remote_retrieve_response_code($releases_response) === 200) {
+        $release_data = json_decode(wp_remote_retrieve_body($releases_response), true);
+        if (isset($release_data['zipball_url']) && !empty($release_data['zipball_url'])) {
+            return $release_data['zipball_url'];
+        }
+    }
+    
+    // Якщо релізів немає, використовуємо прямі посилання на головну гілку (main або master)
+    // Перевіряємо спочатку main, потім master
     $main_url = "https://github.com/{$username}/{$repo_name}/archive/refs/heads/main.zip";
     $master_url = "https://github.com/{$username}/{$repo_name}/archive/refs/heads/master.zip";
     
-    // Check availability of main.zip
+    // Перевіряємо доступність main.zip
     $main_response = wp_remote_head($main_url, array(
         'timeout' => 30,
-        'headers' => array(
-            'User-Agent' => 'WordPress/' . get_bloginfo('version') . '; ' . get_bloginfo('url'),
-        ),
+        'headers' => $headers,
     ));
     
     if (!is_wp_error($main_response) && wp_remote_retrieve_response_code($main_response) === 200) {
         return $main_url;
     }
     
-    // If main.zip is not available, return master.zip
+    // Якщо main.zip недоступний, повертаємо master.zip
     return $master_url;
 }
 
@@ -102,6 +126,17 @@ function ip_installer_install_plugin($plugin_data) {
     // Download archive
     $temp_file = $temp_dir . '/plugin.zip';
     
+    // Підготовка заголовків запиту
+    $headers = array(
+        'User-Agent' => 'WordPress/' . get_bloginfo('version') . '; ' . get_bloginfo('url'),
+    );
+    
+    // Додаємо токен аутентифікації, якщо він є
+    $github_api_key = function_exists('ip_installer_get_github_api_key') ? ip_installer_get_github_api_key() : '';
+    if (!empty($github_api_key)) {
+        $headers['Authorization'] = 'token ' . $github_api_key;
+    }
+    
     // Use curl for download if available
     if (function_exists('curl_init')) {
         $ch = curl_init();
@@ -114,6 +149,11 @@ function ip_installer_install_plugin($plugin_data) {
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
         curl_setopt($ch, CURLOPT_FILE, $fp);
         curl_setopt($ch, CURLOPT_TIMEOUT, 300);
+        
+        // Додаємо заголовок авторизації, якщо є API-ключ
+        if (!empty($github_api_key)) {
+            curl_setopt($ch, CURLOPT_HTTPHEADER, array('Authorization: token ' . $github_api_key));
+        }
         
         curl_exec($ch);
         $curl_error = curl_error($ch);
@@ -143,9 +183,7 @@ function ip_installer_install_plugin($plugin_data) {
             'timeout' => 300,
             'stream' => true,
             'filename' => $temp_file,
-            'headers' => array(
-                'User-Agent' => 'WordPress/' . get_bloginfo('version') . '; ' . get_bloginfo('url'),
-            ),
+            'headers' => $headers,
             'sslverify' => false,
             'redirection' => 5,
         ));
@@ -165,7 +203,7 @@ function ip_installer_install_plugin($plugin_data) {
         }
     }
     
-    // Check if file exists and is not empty
+    // Перевірка, чи файл існує і не порожній
     if (!file_exists($temp_file) || filesize($temp_file) == 0) {
         ip_installer_rrmdir($temp_dir);
         return new WP_Error(
@@ -295,6 +333,9 @@ function ip_installer_get_plugin_version($plugin_dir) {
         require_once(ABSPATH . 'wp-admin/includes/plugin.php');
     }
     
+    // Очищення кешу інформації про плагіни
+    wp_cache_delete('plugins', 'plugins');
+    
     // Try standard plugin file naming
     $plugin_file = WP_PLUGIN_DIR . '/' . $plugin_dir . '/' . basename($plugin_dir) . '.php';
     
@@ -304,7 +345,7 @@ function ip_installer_get_plugin_version($plugin_dir) {
         if (!empty($plugin_files)) {
             foreach ($plugin_files as $file) {
                 // Read plugin data
-                $plugin_data = get_plugin_data($file);
+                $plugin_data = get_plugin_data($file, false, false);
                 
                 // If file has plugin data like name and version, use it
                 if (!empty($plugin_data['Name'])) {
@@ -323,9 +364,13 @@ function ip_installer_get_plugin_version($plugin_dir) {
     }
     
     // Get plugin data and return version
-    $plugin_data = get_plugin_data($plugin_file);
+    $plugin_data = get_plugin_data($plugin_file, false, false);
     
-    return !empty($plugin_data['Version']) ? $plugin_data['Version'] : false;
+    if (!empty($plugin_data['Version'])) {
+        return $plugin_data['Version'];
+    }
+    
+    return false;
 }
 
 /**
@@ -384,15 +429,49 @@ function ip_installer_check_update($github_url, $current_version) {
     $repo_name = end($repo_parts);
     $username = prev($repo_parts);
     
-    // API URL для GitHub API
+    // Підготовка заголовків запиту
+    $headers = array(
+        'User-Agent' => 'WordPress/' . get_bloginfo('version') . '; ' . get_bloginfo('url'),
+        'Accept' => 'application/vnd.github.v3+json', // Використовуємо останню версію API
+    );
+    
+    // Додаємо токен аутентифікації, якщо він є
+    $github_api_key = function_exists('ip_installer_get_github_api_key') ? ip_installer_get_github_api_key() : '';
+    if (!empty($github_api_key)) {
+        $headers['Authorization'] = 'token ' . $github_api_key;
+    }
+    
+    // 1. Спочатку перевіряємо через API релізів GitHub
+    $releases_url = "https://api.github.com/repos/{$username}/{$repo_name}/releases/latest";
+    $releases_response = wp_remote_get($releases_url, array(
+        'timeout' => 10,
+        'headers' => $headers,
+    ));
+    
+    if (!is_wp_error($releases_response) && wp_remote_retrieve_response_code($releases_response) === 200) {
+        $release_data = json_decode(wp_remote_retrieve_body($releases_response), true);
+        
+        if (isset($release_data['tag_name'])) {
+            // Форматуємо версію з тегу (видаляємо 'v' або інші префікси)
+            $release_version = preg_replace('/^[vV]/', '', $release_data['tag_name']);
+            
+            // Очищаємо версію, щоб залишити тільки числа та крапки
+            $release_version = preg_replace('/[^0-9\.]/', '', $release_version);
+            
+            // Порівнюємо версії
+            if (!empty($release_version) && version_compare($release_version, $current_version, '>')) {
+                return $release_version;
+            }
+        }
+    }
+    
+    // 2. Якщо релізи не знайдені, перевіряємо файли у репозиторії
     $api_url = "https://api.github.com/repos/{$username}/{$repo_name}/contents";
     
     // Запит до GitHub API
     $response = wp_remote_get($api_url, array(
         'timeout' => 10,
-        'headers' => array(
-            'User-Agent' => 'WordPress/' . get_bloginfo('version') . '; ' . get_bloginfo('url'),
-        ),
+        'headers' => $headers,
     ));
     
     if (is_wp_error($response) || wp_remote_retrieve_response_code($response) !== 200) {
@@ -422,9 +501,7 @@ function ip_installer_check_update($github_url, $current_version) {
     if (!empty($readme_url)) {
         $readme_response = wp_remote_get($readme_url, array(
             'timeout' => 10,
-            'headers' => array(
-                'User-Agent' => 'WordPress/' . get_bloginfo('version') . '; ' . get_bloginfo('url'),
-            ),
+            'headers' => $headers,
         ));
         
         if (!is_wp_error($readme_response) && wp_remote_retrieve_response_code($readme_response) === 200) {
@@ -446,9 +523,7 @@ function ip_installer_check_update($github_url, $current_version) {
     if (!empty($main_php_url)) {
         $php_response = wp_remote_get($main_php_url, array(
             'timeout' => 10,
-            'headers' => array(
-                'User-Agent' => 'WordPress/' . get_bloginfo('version') . '; ' . get_bloginfo('url'),
-            ),
+            'headers' => $headers,
         ));
         
         if (!is_wp_error($php_response) && wp_remote_retrieve_response_code($php_response) === 200) {
