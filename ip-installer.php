@@ -15,7 +15,6 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-// Constants definition
 // Отримання версії плагіна з опису файлу
 $plugin_data = get_file_data(__FILE__, array('Version' => 'Version'), 'plugin');
 define('IP_INSTALLER_VERSION', $plugin_data['Version']);
