@@ -3,7 +3,7 @@
  * Plugin Name: IP Installer
  * Plugin URI: https://github.com/pekarskyi/
  * Description: Plugin for installing other plugins and scripts from GitHub repositories.
- * Version: 1.2.0
+ * Version: 1.1.0
  * Author: InwebPress
  * Author URI: https://inwebpress.com
  * Text Domain: ip-installer
