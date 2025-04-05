@@ -150,3 +150,56 @@
     font-size: 0.9em;
     font-style: italic;
 }
+
+/* Стилі для перемикача */
+.ip-toggle-switch {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 24px;
+    margin-right: 10px;
+    vertical-align: middle;
+}
+
+.ip-toggle-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+    margin: 0;
+}
+
+.ip-toggle-slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .3s;
+    border-radius: 34px;
+}
+
+.ip-toggle-slider:before {
+    position: absolute;
+    content: "";
+    height: 18px;
+    width: 18px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    transition: .3s;
+    border-radius: 50%;
+}
+
+.ip-toggle-switch input:checked+.ip-toggle-slider {
+    background-color: #2271b1;
+}
+
+.ip-toggle-switch input:focus+.ip-toggle-slider {
+    box-shadow: 0 0 1px #2271b1;
+}
+
+.ip-toggle-switch input:checked+.ip-toggle-slider:before {
+    transform: translateX(26px);
+}

@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: IP Installer 1.0.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/ip-installer\n"
-"POT-Creation-Date: 2025-04-03 22:58+0000\n"
+"POT-Creation-Date: 2025-04-05 22:51+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -17,26 +17,26 @@ msgstr ""
 "Language: \n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;"
 
-#: ip-installer.php:217
+#: ip-installer.php:245
 msgid ""
 "A simple WordPress plugin for cleaning up the database by removing products, "
 "categories, attributes, tags, coupons, orders, and order notes."
 msgstr ""
 
-#: ip-installer.php:184
+#: ip-installer.php:212
 msgid ""
 "A WordPress debugging tool that displays PHP errors from debug.log in a "
 "structured and user-friendly format."
 msgstr ""
 
-#: ip-installer.php:201
+#: ip-installer.php:229
 msgid ""
 "A WordPress plugin for logging user search queries on your site. It offers a "
 "convenient interface in the WordPress admin panel to view and analyze the "
 "collected data, along with the option to export it in Excel format."
 msgstr ""
 
-#: ip-installer.php:209
+#: ip-installer.php:237
 msgid ""
 "A WordPress plugin that converts local (custom) product attributes into "
 "global attributes."
@@ -46,15 +46,15 @@ msgstr ""
 msgid "Actions"
 msgstr ""
 
-#: ip-installer.php:108 templates/admin-page.php:232
+#: ip-installer.php:130 templates/admin-page.php:232
 msgid "Activate"
 msgstr ""
 
-#: ip-installer.php:106 templates/admin-page.php:198
+#: ip-installer.php:128 templates/admin-page.php:198
 msgid "Active"
 msgstr ""
 
-#: ip-installer.php:118
+#: ip-installer.php:140
 msgid "AJAX request error. Please try again."
 msgstr ""
 
@@ -62,16 +62,22 @@ msgstr ""
 msgid "An error occurred. Please try again."
 msgstr ""
 
-#: ip-installer.php:114 templates/admin-page.php:400
+#: ip-installer.php:141
+msgid ""
+"Are you sure you want to uninstall this plugin? You will be redirected to "
+"the WordPress plugins page to complete the uninstallation."
+msgstr ""
+
+#: ip-installer.php:136 templates/admin-page.php:400
 msgid "Check for updates"
 msgstr ""
 
-#: includes/installer-functions.php:129
+#: includes/installer-functions.php:169
 #, php-format
 msgid "CURL Error: %s"
 msgstr ""
 
-#: ip-installer.php:109 templates/admin-page.php:223
+#: ip-installer.php:131 templates/admin-page.php:223
 msgid "Deactivate"
 msgstr ""
 
@@ -79,7 +85,7 @@ msgstr ""
 msgid "Delete all plugin data when uninstalling"
 msgstr ""
 
-#: ip-installer.php:167
+#: ip-installer.php:195
 msgid "Delivery (UA) Shipping Method for WooCommerce."
 msgstr ""
 
@@ -87,19 +93,19 @@ msgstr ""
 msgid "Description"
 msgstr ""
 
-#: includes/installer-functions.php:173
+#: includes/installer-functions.php:211
 msgid "Downloaded file is missing or empty."
 msgstr ""
 
-#: includes/installer-functions.php:217
+#: includes/installer-functions.php:255
 msgid "Failed to copy plugin files."
 msgstr ""
 
-#: includes/installer-functions.php:243
+#: includes/installer-functions.php:281
 msgid "Failed to copy script file."
 msgstr ""
 
-#: includes/installer-functions.php:98
+#: includes/installer-functions.php:122
 msgid "Failed to create temporary directory for download."
 msgstr ""
 
@@ -111,20 +117,20 @@ msgstr ""
 msgid "Failed to delete script file."
 msgstr ""
 
-#: includes/installer-functions.php:137 includes/installer-functions.php:163
+#: includes/installer-functions.php:177 includes/installer-functions.php:201
 #, php-format
 msgid "Failed to download archive. Response code: %s"
 msgstr ""
 
-#: includes/installer-functions.php:192
+#: includes/installer-functions.php:230
 msgid "Failed to find extracted plugin files."
 msgstr ""
 
-#: includes/installer-functions.php:231
+#: includes/installer-functions.php:269
 msgid "Failed to find PHP script file."
 msgstr ""
 
-#: ip-installer.php:113 templates/admin-page.php:254
+#: ip-installer.php:135 templates/admin-page.php:254
 #: templates/admin-page.php:258 templates/admin-page.php:272
 #: templates/admin-page.php:364 templates/admin-page.php:368
 #: templates/admin-page.php:382
@@ -144,16 +150,16 @@ msgid ""
 "If checked, all plugin data will be removed when the plugin is uninstalled."
 msgstr ""
 
-#: ip-installer.php:107 templates/admin-page.php:200
+#: ip-installer.php:129 templates/admin-page.php:200
 msgid "Inactive"
 msgstr ""
 
-#: ip-installer.php:104 templates/admin-page.php:267
+#: ip-installer.php:126 templates/admin-page.php:267
 #: templates/admin-page.php:377
 msgid "Install"
 msgstr ""
 
-#: ip-installer.php:102 templates/admin-page.php:192
+#: ip-installer.php:124 templates/admin-page.php:192
 #: templates/admin-page.php:328
 msgid "Installed"
 msgstr ""
@@ -163,7 +169,7 @@ msgid "InwebPress"
 msgstr ""
 
 #. Name of the plugin
-#: ip-installer.php:126 ip-installer.php:127 templates/admin-page.php:17
+#: ip-installer.php:149 ip-installer.php:150 templates/admin-page.php:17
 msgid "IP Installer"
 msgstr ""
 
@@ -171,7 +177,7 @@ msgstr ""
 msgid "IP Installer Settings"
 msgstr ""
 
-#: ip-installer.php:115 templates/admin-page.php:106
+#: ip-installer.php:137 templates/admin-page.php:106
 #: templates/admin-page.php:410
 #, php-format
 msgid "Last checked: %s"
@@ -186,7 +192,7 @@ msgstr ""
 msgid "Name"
 msgstr ""
 
-#: ip-installer.php:103 templates/admin-page.php:203
+#: ip-installer.php:125 templates/admin-page.php:203
 #: templates/admin-page.php:333
 msgid "Not Installed"
 msgstr ""
@@ -211,12 +217,12 @@ msgstr ""
 msgid "Plugin %s uninstalled successfully!"
 msgstr ""
 
-#: ip-installer.php:112 templates/admin-page.php:38
+#: ip-installer.php:134 templates/admin-page.php:38
 #, php-format
 msgid "Plugin %s updated successfully to the latest version %s!"
 msgstr ""
 
-#: ip-installer.php:111 templates/admin-page.php:44
+#: ip-installer.php:133 templates/admin-page.php:44
 #, php-format
 msgid "Plugin %s updated successfully!"
 msgstr ""
@@ -282,7 +288,7 @@ msgstr ""
 msgid "Security check failed."
 msgstr ""
 
-#: ip-installer.php:137 ip-installer.php:138 ip-installer.php:148
+#: ip-installer.php:160 ip-installer.php:161 ip-installer.php:176
 msgid "Settings"
 msgstr ""
 
@@ -298,28 +304,28 @@ msgstr ""
 msgid "Status"
 msgstr ""
 
-#: ip-installer.php:193
+#: ip-installer.php:221
 msgid ""
 "The plugin lets you quickly switch between different languages without "
 "digging into WordPress general or profile settings."
 msgstr ""
 
-#: ip-installer.php:105 templates/admin-page.php:213
+#: ip-installer.php:127 templates/admin-page.php:213
 #: templates/admin-page.php:343
 msgid "Uninstall"
 msgstr ""
 
-#: ip-installer.php:116 templates/admin-page.php:98
+#: ip-installer.php:138 templates/admin-page.php:98
 msgid "Update check completed. All plugins and scripts are up to date."
 msgstr ""
 
-#: ip-installer.php:117 templates/admin-page.php:89
+#: ip-installer.php:139 templates/admin-page.php:89
 msgid "Update check completed. Found %d update available."
 msgid_plural "Update check completed. Found %d updates available."
 msgstr[0] ""
 msgstr[1] ""
 
-#: ip-installer.php:110 templates/admin-page.php:243
+#: ip-installer.php:132 templates/admin-page.php:243
 #: templates/admin-page.php:353
 #, php-format
 msgid "Update to %s"
@@ -330,7 +336,7 @@ msgstr ""
 msgid "Version: %s"
 msgstr ""
 
-#: ip-installer.php:159
+#: ip-installer.php:187
 msgid ""
 "WordPress plugin for monitoring, logging, and alerting suspicious GET "
 "requests on your website. It acts as an additional security layer, helping "
@@ -341,10 +347,10 @@ msgstr ""
 msgid "WordPress Plugins"
 msgstr ""
 
-#: ip-installer.php:175
+#: ip-installer.php:203
 msgid ""
 "WordPress URL Replacer is a simple yet powerful tool that instantly replaces "
-"any URLs directly in your site’s database. No complicated settings or bulky "
+"any URLs directly in your site's database. No complicated settings or bulky "
 "plugins — just fast, simple, and effective."
 msgstr ""
 

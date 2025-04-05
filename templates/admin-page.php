@@ -205,7 +205,7 @@ $plugins = ip_installer_get_plugins_list();
                                 </td>
                                 <td class="column-actions">
                                     <?php if ($is_installed) : ?>
-                                        <form method="post" action="" style="display: inline-block;">
+                                        <form method="post" action="" style="display: inline-block;" class="<?php echo ($plugin['installation_type'] === 'plugin') ? 'ip-installer-uninstall-plugin-form' : ''; ?>">
                                             <input type="hidden" name="action" value="ip_installer_uninstall">
                                             <input type="hidden" name="plugin_id" value="<?php echo esc_attr($plugin_id); ?>">
                                             <?php wp_nonce_field('ip_installer_nonce', 'nonce'); ?>

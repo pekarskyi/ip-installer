@@ -1,32 +1,33 @@
 # IP Installer
 
-IP Installer — це плагін WordPress, який спрощує встановлення та оновлення моїх плагінів і скриптів безпосередньо з репозиторіїв GitHub.
+IP Installer is a WordPress plugin that simplifies the installation and update of my plugins and scripts directly from GitHub repositories.
 
-## Функції
+## Features
 
-- **Встановлення в один клік**: Встановлюйте плагіни та скрипти з репозиторіїв GitHub одним натисканням
-- **Керування плагінами**: Активуйте, деактивуйте та видаляйте плагіни прямо з адміністративного інтерфейсу
-- **Керування оновленнями**: Перевіряйте наявність оновлень та легко оновлюйтеся до останніх версій
-- **Підтримка скриптів**: Встановлюйте окремі PHP-скрипти у кореневий каталог WordPress
-- **Підтримка GitHub API**: Використовуйте власний GitHub API-ключ для уникнення обмежень швидкості API
-- **Зручний інтерфейс**: Чистий та інтуїтивно зрозумілий інтерфейс для керування всіма вашими плагінами та скриптами
+- **One-Click Installation**: Install plugins and scripts from GitHub repositories with a single click
+- **Plugin Management**: Activate, deactivate, and remove plugins directly from the administrative interface
+- **Complete Plugin Uninstallation**: Uninstall plugins using the standard WordPress mechanism, ensuring full cleanup of their data in the database
+- **Update Management**: Check for updates and easily upgrade to the latest versions
+- **Script Support**: Install individual PHP scripts in the WordPress root directory
+- **User-Friendly Interface**: Clean and intuitive interface for managing all your plugins and scripts
 
 ![https://github.com/pekarskyi/assets/raw/master/ip-installer/ip-installer.jpg](https://github.com/pekarskyi/assets/raw/master/ip-installer/ip-installer.jpg)
 
-## Як це працює
+## How It Works
 
-IP Installer підключається до репозиторіїв GitHub для завантаження та встановлення плагінів і скриптів. Плагін надає елегантний адміністративний інтерфейс, який дозволяє вам:
+IP Installer connects to GitHub repositories to download and install plugins and scripts. The plugin provides an elegant administrative interface that allows you to:
 
-1. Переглядати всі доступні плагіни та скрипти
-2. Бачити, які плагіни встановлені та їхній стан активації
-3. Перевіряти наявність доступних оновлень
-4. Встановлювати, оновлювати, активувати, деактивувати або видаляти одним натисканням
+1. View all available plugins and scripts
+2. See which plugins are installed and their activation status
+3. Check for available updates
+4. Install, update, activate, deactivate, or remove with a single click
+5. Completely uninstall plugins, including their data in the database, through the standard WordPress mechanism
 
-## Підтримувані плагіни та скрипти
+## Supported Plugins and Scripts
 
-IP Installer попередньо налаштований на роботу з кількома корисними плагінами та скриптами:
+IP Installer is pre-configured to work with several useful plugins and scripts:
 
-### Плагіни:
+### Plugins:
 - [IP GET Logger](https://github.com/pekarskyi/ip-get-logger)
 - [Delivery for WooCommerce](https://github.com/pekarskyi/ip-delivery-shipping)
 - [IP Language Quick Switcher for WordPress](https://github.com/pekarskyi/ip-language-quick-switcher-for-wp)
@@ -34,37 +35,47 @@ IP Installer попередньо налаштований на роботу з 
 - [IP Woo Attributes Converter](https://github.com/pekarskyi/ip-woo-attribute-converter)
 - [IP Woo Cleaner](https://github.com/pekarskyi/ip-woo-cleaner)
 
-### Скрипти:
+### Scripts:
 - [IP WordPress URL Replacer](https://github.com/pekarskyi/ip-wordpress-url-replacer)
 - [IP Debug Log Viewer](https://github.com/pekarskyi/ip-debug-log-viewer)
 
-## Встановлення
+## Localization:
 
-1. Завантажте плагін IP Installer (зелена кнопка Code - Download ZIP).
-2. Завантажте його на ваш сайт WordPress. Переконайтесь, що папка плагіна має назву `ip-installer` (назва на роботу плагіна не впливає, але це впливає на отримання подальших оновлень).
-3. Активуйте плагін.
-4. Перейдіть до "IP Installer" у бічній панелі адміністратора.
-5. Почніть встановлювати та керувати вашими плагінами та скриптами.
-
-## Мови
-
-- Англійська
+- English
 - Українська
+- Русский
 
-## Часті запитання
+## Installation
 
-- Як часто IP Installer перевіряє наявність оновлень? - IP Installer перевіряє наявність оновлень тільки тоді, коли ви натискаєте кнопку "Перевірити наявність оновлень". Це забезпечує мінімальне навантаження на ваш сервер та API GitHub.
+1. Download the `IP Installer` plugin (green Code button - Download ZIP).
+2. Upload it to your WordPress site. Make sure the plugin folder is named `ip-installer` (the name doesn't affect the plugin's operation, but it affects receiving further updates).
+3. Activate the plugin.
+4. Go to `IP Installer` in the admin sidebar.
+5. Start installing and managing your plugins and scripts.
 
-- Чи можу я додавати власні репозиторії GitHub? - Поточна версія підтримує попередньо визначений список репозиторіїв.
+## Frequently Asked Questions
 
-- Чи сумісний цей плагін з мультисайтовими інсталяціями? - Так, IP Installer працює на мультисайтових інсталяціях WordPress.
+- How often does `IP Installer` check for updates? - `IP Installer` checks for updates only when you click the "Check for updates" button. This ensures minimal load on your server and GitHub API.
 
-## Історія змін
+- Can I add my own GitHub repositories? - The current version supports a predefined list of repositories. The ability to add custom repositories may be added in future versions.
+
+- Is this plugin compatible with multisite installations? - Yes, IP Installer works on WordPress multisite installations.
+
+- Are plugin data removed from the database when uninstalled? - Yes, when removing plugins through IP Installer, the standard WordPress mechanism is used, which guarantees complete cleanup of the database from plugin data.
+
+- How are scripts removed? - Scripts are removed directly from the file system since they don't create database records.
+
+## Changelog
+
+1.2.0 - 06.04.2025:
+- Added support for complete plugin uninstallation through the standard WordPress mechanism
+- Improved plugin data cleanup in the database during uninstallation
+
 1.1.0 - 04.04.2025:
-- Додав функцію оновлення плагінів
-- Додав систему оновлення плагіна IP Installer
+- Added plugin update functionality
+- Added IP Installer plugin update system
 
 1.0.0 - 03.04.2025:
-- Підтримка встановлення, активації, деактивації та видалення плагінів
-- Підтримка встановлення та видалення скриптів
-- Функціональність перевірки оновлень
+- Support for installing, activating, deactivating, and removing plugins
+- Support for installing and removing scripts
+- Update check functionality

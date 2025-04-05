@@ -3,11 +3,18 @@
  * Plugin Name: IP Installer
  * Plugin URI: https://github.com/pekarskyi/
  * Description: Plugin for installing other plugins and scripts from GitHub repositories.
- * Version: 1.1.0
+ * Version: 1.2.0
  * Author: InwebPress
  * Author URI: https://inwebpress.com
  * Text Domain: ip-installer
  * Domain Path: /lang
+ * Requires at least: 6.7.0
+ * Tested up to: 6.7.2
+ * Requires PHP: 7.4
+ * WC requires at least: 5.0
+ * WC tested up to: 9.7.1
+ * WooCommerce: true
+ * Custom_Order_Tables_Compatibility: compatible
  */
 
 // Prevent direct access to file
@@ -15,12 +22,14 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-// Отримання версії плагіна з опису файлу
+$github_api_key = '';
+
+// Constants definition
 $plugin_data = get_file_data(__FILE__, array('Version' => 'Version'), 'plugin');
 define('IP_INSTALLER_VERSION', $plugin_data['Version']);
 define('IP_INSTALLER_PLUGIN_URL', plugin_dir_url(__FILE__));
 define('IP_INSTALLER_PLUGIN_PATH', plugin_dir_path(__FILE__));
-define('IP_INSTALLER_SCRIPTS_DIR', ABSPATH); // Директорія для встановлення скриптів
+define('IP_INSTALLER_SCRIPTS_DIR', ABSPATH);
 
 // Plugin activation function
 function ip_installer_activate() {
@@ -58,28 +67,25 @@ function ip_installer_deactivate() {
 }
 register_deactivation_hook(__FILE__, 'ip_installer_deactivate');
 
-// Plugin uninstall function
-function ip_installer_uninstall() {
-    global $wpdb;
-    $table_name = $wpdb->prefix . 'ip_installer_settings';
-    
-    // Check table deletion setting
-    $delete_setting = $wpdb->get_var(
-        $wpdb->prepare("SELECT option_value FROM $table_name WHERE option_name = %s", 'delete_on_uninstall')
-    );
-    
-    if ($delete_setting == '1') {
-        // Delete settings table
-        $wpdb->query("DROP TABLE IF EXISTS $table_name");
-    }
-}
-register_uninstall_hook(__FILE__, 'ip_installer_uninstall');
-
 // Load localization
 function ip_installer_load_textdomain() {
     load_plugin_textdomain('ip-installer', false, dirname(plugin_basename(__FILE__)) . '/lang');
 }
 add_action('plugins_loaded', 'ip_installer_load_textdomain');
+
+// Declare HPOS compatibility for WooCommerce
+function ip_installer_declare_hpos_compatibility() {
+    // Перевірка наявності WooCommerce
+    if (!class_exists('WooCommerce')) {
+        return;
+    }
+    
+    // Реєстрація сумісності з HPOS через API WooCommerce
+    if (class_exists('\Automattic\WooCommerce\Utilities\FeaturesUtil')) {
+        \Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility('custom_order_tables', __FILE__, true);
+    }
+}
+add_action('before_woocommerce_init', 'ip_installer_declare_hpos_compatibility');
 
 // Add styles and scripts
 function ip_installer_enqueue_scripts($hook) {
@@ -91,9 +97,25 @@ function ip_installer_enqueue_scripts($hook) {
     wp_enqueue_style('ip-installer-css', IP_INSTALLER_PLUGIN_URL . 'css/ip-installer.css', array(), IP_INSTALLER_VERSION);
     wp_enqueue_script('ip-installer-js', IP_INSTALLER_PLUGIN_URL . 'js/ip-installer.js', array('jquery'), IP_INSTALLER_VERSION, true);
     
+    $plugins_list = ip_installer_get_plugins_list();
+    $plugin_files = array();
+    
+    foreach ($plugins_list as $plugin_id => $plugin) {
+        if ($plugin['installation_type'] === 'plugin') {
+            $plugin_dir = basename($plugin['github_url']);
+            $plugin_file = ip_installer_find_plugin_file($plugin_dir);
+            if ($plugin_file) {
+                $plugin_files[$plugin_id] = $plugin_file;
+            }
+        }
+    }
+    
     wp_localize_script('ip-installer-js', 'ip_installer_obj', array(
         'ajax_url' => admin_url('admin-ajax.php'),
         'nonce'    => wp_create_nonce('ip_installer_nonce'),
+        'plugins_page' => admin_url('plugins.php'),
+        'plugin_files' => $plugin_files,
+        'wp_delete_nonce' => wp_create_nonce('bulk-plugins'),
     ));
     
     // Add localized strings for front-end
@@ -115,6 +137,7 @@ function ip_installer_enqueue_scripts($hook) {
         'updateCheckComplete' => __('Update check completed. All plugins and scripts are up to date.', 'ip-installer'),
         'updateCheckCompleteFound' => _n_noop('Update check completed. Found %d update available.', 'Update check completed. Found %d updates available.', 'ip-installer'),
         'ajaxError'    => __('AJAX request error. Please try again.', 'ip-installer'),
+        'confirmUninstall' => __('Are you sure you want to uninstall this plugin? You will be redirected to the WordPress plugins page to complete the uninstallation.', 'ip-installer'),
     ));
 }
 add_action('admin_enqueue_scripts', 'ip_installer_enqueue_scripts');
@@ -142,9 +165,8 @@ function ip_installer_add_admin_menu() {
 }
 add_action('admin_menu', 'ip_installer_add_admin_menu');
 
-// Додаємо налаштування для GitHub API ключа
+
 function ip_installer_register_settings() {
-    // Зараз налаштування не потрібні, оскільки всі параметри визначаються через константи
 }
 add_action('admin_init', 'ip_installer_register_settings');
 
@@ -275,25 +297,17 @@ function ip_installer_update_setting($option_name, $option_value) {
     }
 }
 
-/**
- * Отримання GitHub API-ключа
- * 
- * @return string API-ключ GitHub або пустий рядок
- */
 function ip_installer_get_github_api_key() {
     global $github_api_key;
     
-    // Спочатку перевіряємо, чи визначена константа
     if (defined('IP_INSTALLER_GITHUB_API_KEY')) {
         return IP_INSTALLER_GITHUB_API_KEY;
     }
     
-    // Далі перевіряємо, чи є значення в змінній
     if (!empty($github_api_key)) {
         return $github_api_key;
     }
     
-    // Якщо не знайдено, повертаємо пустий рядок
     return '';
 }
 
@@ -301,9 +315,7 @@ function ip_installer_get_github_api_key() {
 require_once IP_INSTALLER_PLUGIN_PATH . 'includes/installer-functions.php';
 require_once IP_INSTALLER_PLUGIN_PATH . 'includes/ajax-handlers.php';
 
-// Обробка форм встановлення та видалення
 function ip_installer_process_forms() {
-    // Перевірка форми для установки плагіна
     if (isset($_POST['action']) && $_POST['action'] === 'ip_installer_install' && isset($_POST['plugin_id'])) {
         if (!check_admin_referer('ip_installer_nonce', 'nonce')) {
             wp_die('Security check failed');
@@ -324,7 +336,6 @@ function ip_installer_process_forms() {
         $success = false;
         $version = '';
 
-        // Встановлення плагіна або скрипта
         if ($plugin['installation_type'] === 'plugin') {
             $success = ip_installer_install_plugin($plugin);
             if ($success) {
@@ -347,7 +358,6 @@ function ip_installer_process_forms() {
         }
     }
 
-    // Перевірка форми для видалення плагіна
     if (isset($_POST['action']) && $_POST['action'] === 'ip_installer_uninstall' && isset($_POST['plugin_id'])) {
         if (!check_admin_referer('ip_installer_nonce', 'nonce')) {
             wp_die('Security check failed');
@@ -366,19 +376,15 @@ function ip_installer_process_forms() {
 
         $plugin = $plugins[$plugin_id];
         
-        // Деактивація та видалення плагіна
         if ($plugin['installation_type'] === 'plugin') {
             $plugin_dir = basename($plugin['github_url']);
             $plugin_file = '';
             
-            // Знаходимо головний файл плагіна
             if (file_exists(WP_PLUGIN_DIR . '/' . $plugin_dir)) {
-                // Перевіряємо стандартний шлях до головного файлу
                 $standard_file = $plugin_dir . '/' . basename($plugin_dir) . '.php';
                 if (file_exists(WP_PLUGIN_DIR . '/' . $standard_file)) {
                     $plugin_file = $standard_file;
                 } else {
-                    // Шукаємо інші PHP файли
                     $plugin_files = glob(WP_PLUGIN_DIR . '/' . $plugin_dir . '/*.php');
                     if (!empty($plugin_files)) {
                         foreach ($plugin_files as $file) {
@@ -395,12 +401,10 @@ function ip_installer_process_forms() {
                 }
             }
             
-            // Деактивуємо плагін перед видаленням (якщо знайдений головний файл)
             if (!empty($plugin_file) && is_plugin_active($plugin_file)) {
                 deactivate_plugins($plugin_file);
             }
             
-            // Видаляємо плагін
             $plugin_dir_path = WP_PLUGIN_DIR . '/' . $plugin_dir;
             if (file_exists($plugin_dir_path)) {
                 WP_Filesystem();
@@ -412,7 +416,6 @@ function ip_installer_process_forms() {
                 exit;
             }
         } else {
-            // Видалення скрипта
             $script_path = ABSPATH . $plugin['filename'];
             
             if (file_exists($script_path)) {
@@ -430,7 +433,6 @@ function ip_installer_process_forms() {
         exit;
     }
 
-    // Обробка форми активації плагіна
     if (isset($_POST['action']) && $_POST['action'] === 'ip_installer_activate' && isset($_POST['plugin_id'])) {
         if (!check_admin_referer('ip_installer_nonce', 'nonce')) {
             wp_die('Security check failed');
@@ -452,10 +454,8 @@ function ip_installer_process_forms() {
         if ($plugin['installation_type'] === 'plugin') {
             $plugin_dir = basename($plugin['github_url']);
             
-            // Знаходимо головний файл плагіна
             $plugin_file = $plugin_dir . '/' . basename($plugin_dir) . '.php';
             
-            // Перевіряємо, чи існує файл за стандартним шляхом
             if (!file_exists(WP_PLUGIN_DIR . '/' . $plugin_file)) {
                 // Шукаємо інші PHP файли
                 $plugin_files = glob(WP_PLUGIN_DIR . '/' . $plugin_dir . '/*.php');
@@ -476,7 +476,6 @@ function ip_installer_process_forms() {
                 }
             }
             
-            // Активуємо плагін
             if (!function_exists('activate_plugin')) {
                 include_once(ABSPATH . 'wp-admin/includes/plugin.php');
             }
@@ -496,7 +495,6 @@ function ip_installer_process_forms() {
         }
     }
 
-    // Обробка форми деактивації плагіна
     if (isset($_POST['action']) && $_POST['action'] === 'ip_installer_deactivate' && isset($_POST['plugin_id'])) {
         if (!check_admin_referer('ip_installer_nonce', 'nonce')) {
             wp_die('Security check failed');
@@ -518,10 +516,8 @@ function ip_installer_process_forms() {
         if ($plugin['installation_type'] === 'plugin') {
             $plugin_dir = basename($plugin['github_url']);
             
-            // Знаходимо головний файл плагіна
             $plugin_file = $plugin_dir . '/' . basename($plugin_dir) . '.php';
             
-            // Перевіряємо, чи існує файл за стандартним шляхом
             if (!file_exists(WP_PLUGIN_DIR . '/' . $plugin_file)) {
                 // Шукаємо інші PHP файли
                 $plugin_files = glob(WP_PLUGIN_DIR . '/' . $plugin_dir . '/*.php');
@@ -542,7 +538,6 @@ function ip_installer_process_forms() {
                 }
             }
             
-            // Деактивуємо плагін
             if (!function_exists('deactivate_plugins')) {
                 include_once(ABSPATH . 'wp-admin/includes/plugin.php');
             }
@@ -556,7 +551,6 @@ function ip_installer_process_forms() {
         }
     }
 
-    // Обробка форми оновлення плагіна
     if (isset($_POST['action']) && $_POST['action'] === 'ip_installer_update' && isset($_POST['plugin_id'])) {
         if (!check_admin_referer('ip_installer_nonce', 'nonce')) {
             wp_die('Security check failed');
@@ -578,16 +572,12 @@ function ip_installer_process_forms() {
         $version = '';
         $was_active = false;
 
-        // Зберігаємо інформацію про активність плагіна перед оновленням
         if ($plugin['installation_type'] === 'plugin') {
             $plugin_dir = basename($plugin['github_url']);
             
-            // Знаходимо головний файл плагіна
             $plugin_file = $plugin_dir . '/' . basename($plugin_dir) . '.php';
             
-            // Перевіряємо, чи існує файл за стандартним шляхом
             if (!file_exists(WP_PLUGIN_DIR . '/' . $plugin_file)) {
-                // Шукаємо інші PHP файли
                 $plugin_files = glob(WP_PLUGIN_DIR . '/' . $plugin_dir . '/*.php');
                 if (!empty($plugin_files)) {
                     foreach ($plugin_files as $file) {
@@ -603,35 +593,28 @@ function ip_installer_process_forms() {
                 }
             }
             
-            // Перевіряємо, чи активний плагін
             if (!empty($plugin_file)) {
                 if (!function_exists('is_plugin_active')) {
                     include_once(ABSPATH . 'wp-admin/includes/plugin.php');
                 }
                 $was_active = is_plugin_active($plugin_file);
                 
-                // Деактивуємо плагін перед оновленням
                 if ($was_active) {
                     deactivate_plugins($plugin_file);
                 }
             }
         }
 
-        // Встановлюємо (оновлюємо) плагін або скрипт
         if ($plugin['installation_type'] === 'plugin') {
             $success = ip_installer_install_plugin($plugin);
             if ($success) {
                 $plugin_dir = basename($plugin['github_url']);
                 $version = ip_installer_get_plugin_version($plugin_dir);
                 
-                // Активуємо плагін після оновлення, якщо він був активний
                 if ($was_active) {
-                    // Знаходимо оновлений файл плагіна
                     $plugin_file = $plugin_dir . '/' . basename($plugin_dir) . '.php';
                     
-                    // Перевіряємо, чи існує файл за стандартним шляхом
                     if (!file_exists(WP_PLUGIN_DIR . '/' . $plugin_file)) {
-                        // Шукаємо інші PHP файли
                         $plugin_files = glob(WP_PLUGIN_DIR . '/' . $plugin_dir . '/*.php');
                         if (!empty($plugin_files)) {
                             foreach ($plugin_files as $file) {
@@ -647,7 +630,6 @@ function ip_installer_process_forms() {
                         }
                     }
                     
-                    // Активуємо плагін
                     if (!empty($plugin_file)) {
                         if (!function_exists('activate_plugin')) {
                             include_once(ABSPATH . 'wp-admin/includes/plugin.php');
@@ -656,17 +638,13 @@ function ip_installer_process_forms() {
                     }
                 }
                 
-                // Оновлюємо інформацію про доступні оновлення
                 $available_updates = get_option('ip_installer_available_updates', array());
                 
-                // Перевіряємо, чи є ще новіші версії
                 $new_version = ip_installer_check_update($plugin['github_url'], $version);
                 
                 if ($new_version) {
-                    // Якщо є ще новіша версія, оновлюємо її в списку
                     $available_updates[$plugin_id] = $new_version;
                 } else {
-                    // Якщо оновлення більше немає, видаляємо з списку
                     if (isset($available_updates[$plugin_id])) {
                         unset($available_updates[$plugin_id]);
                     }
@@ -678,18 +656,13 @@ function ip_installer_process_forms() {
             $success = ip_installer_install_script($plugin);
             if ($success) {
                 $version = ip_installer_get_script_version($plugin['filename']);
-                
-                // Оновлюємо інформацію про доступні оновлення
                 $available_updates = get_option('ip_installer_available_updates', array());
                 
-                // Перевіряємо, чи є ще новіші версії
                 $new_version = ip_installer_check_update($plugin['github_url'], $version);
                 
                 if ($new_version) {
-                    // Якщо є ще новіша версія, оновлюємо її в списку
                     $available_updates[$plugin_id] = $new_version;
                 } else {
-                    // Якщо оновлення більше немає, видаляємо з списку
                     if (isset($available_updates[$plugin_id])) {
                         unset($available_updates[$plugin_id]);
                     }
@@ -700,7 +673,6 @@ function ip_installer_process_forms() {
         }
 
         if ($success) {
-            // Перевіряємо, чи оновився до найновішої версії
             $is_latest = false;
             $available_updates = get_option('ip_installer_available_updates', array());
             if (!isset($available_updates[$plugin_id])) {
@@ -727,7 +699,6 @@ function ip_installer_process_forms() {
         }
     }
 
-    // Обробка форми перевірки оновлень
     if (isset($_POST['action']) && $_POST['action'] === 'ip_installer_check_all_updates') {
         if (!check_admin_referer('ip_installer_nonce', 'nonce')) {
             wp_die('Security check failed');
@@ -737,15 +708,12 @@ function ip_installer_process_forms() {
             wp_die('You do not have sufficient permissions to perform this action');
         }
 
-        // Очищуємо кеш оновлень перед перевіркою
         delete_option('ip_installer_available_updates');
         
-        // Отримуємо всі плагіни та скрипти
         $plugins = ip_installer_get_plugins_list();
         $available_updates = array();
         $updates_found = 0;
 
-        // Перевіряємо кожен плагін та скрипт на наявність оновлень
         foreach ($plugins as $plugin_id => $plugin) {
             if ($plugin['installation_type'] === 'plugin') {
                 $plugin_dir = basename($plugin['github_url']);
@@ -760,7 +728,6 @@ function ip_installer_process_forms() {
                     }
                 }
             } else {
-                // Для скриптів
                 if (file_exists(ABSPATH . $plugin['filename'])) {
                     $current_version = ip_installer_get_script_version($plugin['filename']);
                     if (!empty($current_version)) {
@@ -774,16 +741,13 @@ function ip_installer_process_forms() {
             }
         }
 
-        // Зберігаємо результати перевірки в опціях WordPress
         update_option('ip_installer_available_updates', $available_updates);
         update_option('ip_installer_last_check', current_time('timestamp'));
 
-        // Перенаправляємо назад з повідомленням
         wp_redirect(admin_url('admin.php?page=ip-installer&updates_checked=1&count=' . $updates_found));
         exit;
     }
 
-    // Обробка форми налаштувань
     if (isset($_POST['action']) && $_POST['action'] === 'ip_installer_update_settings') {
         if (!check_admin_referer('ip_installer_settings_nonce', 'settings_nonce')) {
             wp_die('Security check failed');
@@ -793,11 +757,9 @@ function ip_installer_process_forms() {
             wp_die('You do not have sufficient permissions to perform this action');
         }
 
-        // Оновлення налаштування
         $delete_on_uninstall = isset($_POST['delete_on_uninstall']) ? 1 : 0;
         update_option('ip_installer_delete_on_uninstall', $delete_on_uninstall);
         
-        // Перенаправлення назад на сторінку налаштувань
         wp_redirect(admin_url('admin.php?page=ip-installer-settings&settings_updated=1'));
         exit;
     }
@@ -807,26 +769,42 @@ add_action('admin_init', 'ip_installer_process_forms');
 // Adding update check via GitHub
 require_once plugin_dir_path( __FILE__ ) . 'updates/github-updater.php';
 
-$github_username = 'pekarskyi'; // Вказуємо ім'я користувача GitHub
-$repo_name = 'ip-installer'; // Вказуємо ім'я репозиторію GitHub, наприклад ip-wp-github-updater
-$prefix = 'ip_installer'; // Встановлюємо унікальний префікс плагіну, наприклад ip_wp_github_updater
+$github_username = 'pekarskyi';
+$repo_name = 'ip-installer';
+$prefix = 'ip_installer';
 
-// Ініціалізуємо систему оновлення плагіну з GitHub
 if ( function_exists( 'ip_github_updater_load' ) ) {
-    // Завантажуємо файл оновлювача з нашим префіксом
     ip_github_updater_load($prefix);
     
-    // Формуємо назву функції оновлення з префіксу
     $updater_function = $prefix . '_github_updater_init';   
     
-    // Після завантаження наша функція оновлення повинна бути доступна
     if ( function_exists( $updater_function ) ) {
         call_user_func(
             $updater_function,
             __FILE__,       // Plugin file path
             $github_username, // Your GitHub username
-            '',              // Access token (empty)
+            $github_api_key,              // Access token (empty)
             $repo_name       // Repository name (на основі префіксу)
         );
     }
-} 
+}
+
+function ip_installer_find_plugin_file($plugin_dir) {
+    $standard_file = $plugin_dir . '/' . $plugin_dir . '.php';
+    if (file_exists(WP_PLUGIN_DIR . '/' . $standard_file)) {
+        return $standard_file;
+    }
+
+    if (!function_exists('get_plugins')) {
+        require_once ABSPATH . 'wp-admin/includes/plugin.php';
+    }
+    
+    $all_plugins = get_plugins();
+    foreach ($all_plugins as $file => $data) {
+        if (strpos($file, $plugin_dir . '/') === 0) {
+            return $file;
+        }
+    }
+    
+    return false;
+}

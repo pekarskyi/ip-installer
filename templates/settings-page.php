@@ -30,18 +30,16 @@ $delete_on_uninstall = get_option('ip_installer_delete_on_uninstall', 0);
         <table class="form-table">
             <tr>
                 <th scope="row">
-                    <label for="delete_on_uninstall">
-                        <?php _e('Plugin cleanup', 'ip-installer'); ?>
-                    </label>
+                    <?php _e('Plugin cleanup', 'ip-installer'); ?>
                 </th>
                 <td>
-                    <label>
-                        <input type="checkbox" id="delete_on_uninstall" name="delete_on_uninstall" value="1" <?php checked($delete_on_uninstall, 1); ?>>
-                        <?php _e('Delete all plugin data when uninstalling', 'ip-installer'); ?>
-                    </label>
-                    <p class="description">
-                        <?php _e('If checked, all plugin data will be removed when the plugin is uninstalled.', 'ip-installer'); ?>
-                    </p>
+                    <div class="ip-toggle-container">
+                        <label class="ip-toggle-switch">
+                            <input type="checkbox" id="delete_on_uninstall" name="delete_on_uninstall" value="1" <?php checked($delete_on_uninstall, 1); ?>>
+                            <span class="ip-toggle-slider"></span>
+                        </label>
+                        <span class="ip-toggle-label"><?php _e('Delete all plugin data when uninstalling', 'ip-installer'); ?></span>
+                    </div>
                 </td>
             </tr>
         </table>
