@@ -32,7 +32,7 @@ IP Installer попередньо налаштований на роботу з 
 
 ### Плагіни:
 - [IP GET Logger](https://github.com/pekarskyi/ip-get-logger)
-- [Delivery for WooCommerce](https://github.com/pekarskyi/ip-delivery-shipping)
+- [Делівері для WooCommerce](https://github.com/pekarskyi/ip-delivery-shipping)
 - [IP Language Quick Switcher for WordPress](https://github.com/pekarskyi/ip-language-quick-switcher-for-wp)
 - [IP Search Log](https://github.com/pekarskyi/ip-search-log)
 - [IP Woo Attributes Converter](https://github.com/pekarskyi/ip-woo-attribute-converter)
