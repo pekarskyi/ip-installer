@@ -2,7 +2,7 @@
 
 IP Installer — це плагін WordPress, який спрощує встановлення та оновлення моїх плагінів і скриптів безпосередньо з репозиторіїв GitHub.
 
-[Перейти на головну сторінку](https://github.com/pekarskyi/ip-installer/)
+[Перейти на головну сторінку](https://github.com/pekarskyi/ip-installer)
 
 [![GitHub release (latest by date)](https://img.shields.io/github/v/release/pekarskyi/ip-installer?style=for-the-badge)](https://GitHub.com/pekarskyi/ip-installer/releases/)
 
