@@ -3,7 +3,7 @@
  * Plugin Name: IP Installer
  * Plugin URI: https://github.com/pekarskyi/
  * Description: Plugin for installing other plugins and scripts from GitHub repositories.
- * Version: 1.2.0
+ * Version: 1.0.0
  * Author: InwebPress
  * Author URI: https://inwebpress.com
  * Text Domain: ip-installer
@@ -192,7 +192,7 @@ function ip_installer_get_plugins_list() {
         'ip-delivery-shipping' => array(
             'name' => 'Delivery for WooCommerce',
             'description' => __('Delivery (UA) Shipping Method for WooCommerce.', 'ip-installer'),
-            'redirect_url' => admin_url('admin.php?page=wc-settings&tab=shipping&section=delivery'),
+            'redirect_url' => admin_url('admin.php?page=ip-delivery-settings'),
             'github_url' => 'https://github.com/pekarskyi/ip-delivery-shipping',
             'installation_type' => 'plugin',
             'install_path' => WP_PLUGIN_DIR,

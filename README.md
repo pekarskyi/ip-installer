@@ -71,15 +71,5 @@ IP Installer is pre-configured to work with several useful plugins and scripts:
 
 ## Changelog
 
-1.2.0 - 06.04.2025:
-- Added support for complete plugin uninstallation through the standard WordPress mechanism
-- Improved plugin data cleanup in the database during uninstallation
-
-1.1.0 - 04.04.2025:
-- Added plugin update functionality
-- Added IP Installer plugin update system
-
-1.0.0 - 03.04.2025:
-- Support for installing, activating, deactivating, and removing plugins
-- Support for installing and removing scripts
-- Update check functionality
+1.0.0 - 06.04.2025:
+- Initial release 
