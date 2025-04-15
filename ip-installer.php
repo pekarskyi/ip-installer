@@ -3,7 +3,7 @@
  * Plugin Name: IP Installer
  * Plugin URI: https://github.com/pekarskyi/
  * Description: Plugin for installing other plugins and scripts from GitHub repositories.
- * Version: 1.0.0
+ * Version: 1.0.1
  * Author: InwebPress
  * Author URI: https://inwebpress.com
  * Text Domain: ip-installer
@@ -196,15 +196,6 @@ function ip_installer_get_plugins_list() {
             'github_url' => 'https://github.com/pekarskyi/ip-delivery-shipping',
             'installation_type' => 'plugin',
             'install_path' => WP_PLUGIN_DIR,
-        ),
-        'ip-wordpress-url-replacer' => array(
-            'name' => 'IP WordPress URL Replacer',
-            'description' => __('WordPress URL Replacer is a simple yet powerful tool that instantly replaces any URLs directly in your site\'s database. No complicated settings or bulky plugins — just fast, simple, and effective.', 'ip-installer'),
-            'redirect_url' => site_url('/wur-script.php'),
-            'github_url' => 'https://github.com/pekarskyi/ip-wordpress-url-replacer',
-            'installation_type' => 'script',
-            'install_path' => ABSPATH,
-            'filename' => 'wur-script.php',
         ),
         'ip-debug-log-viewer' => array(
             'name' => 'IP Debug Log Viewer',

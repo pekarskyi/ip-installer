@@ -39,7 +39,6 @@ IP Installer попередньо налаштований на роботу з 
 - [IP Woo Cleaner](https://github.com/pekarskyi/ip-woo-cleaner)
 
 ### Скрипти:
-- [IP WordPress URL Replacer](https://github.com/pekarskyi/ip-wordpress-url-replacer)
 - [IP Debug Log Viewer](https://github.com/pekarskyi/ip-debug-log-viewer)
 
 ## Локалізація:
